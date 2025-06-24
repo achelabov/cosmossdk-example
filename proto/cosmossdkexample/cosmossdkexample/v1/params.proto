@@ -1,0 +1,13 @@
+syntax = "proto3";
+package cosmossdkexample.cosmossdkexample.v1;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/achelabov/cosmossdk-example/x/cosmossdkexample/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "cosmossdkexample/x/cosmossdkexample/Params";
+  option (gogoproto.equal) = true;
+}
