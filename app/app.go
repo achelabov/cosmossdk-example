@@ -47,6 +47,7 @@ import (
 
 	"github.com/achelabov/cosmossdk-example/docs"
 	cosmossdkexamplemodulekeeper "github.com/achelabov/cosmossdk-example/x/cosmossdkexample/keeper"
+	notesmodulekeeper "github.com/achelabov/cosmossdk-example/x/notes/keeper"
 )
 
 const (
@@ -99,6 +100,7 @@ type App struct {
 	TransferKeeper      ibctransferkeeper.Keeper
 
 	CosmossdkexampleKeeper cosmossdkexamplemodulekeeper.Keeper
+	NotesKeeper            notesmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -179,6 +181,7 @@ func New(
 		&app.CircuitBreakerKeeper,
 		&app.ParamsKeeper,
 		&app.CosmossdkexampleKeeper,
+		&app.NotesKeeper,
 	); err != nil {
 		panic(err)
 	}

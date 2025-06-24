@@ -1,0 +1,12 @@
+syntax = "proto3";
+package cosmossdkexample.notes.v1;
+
+option go_package = "github.com/achelabov/cosmossdk-example/x/notes/types";
+
+// Note defines the Note message.
+message Note {
+  string index = 1;
+  string text = 2;
+  string creator = 3;
+  int64 createdAt = 4;
+}

@@ -38,6 +38,8 @@ import (
 	upgradetypes "cosmossdk.io/x/upgrade/types"
 	_ "github.com/achelabov/cosmossdk-example/x/cosmossdkexample/module"
 	cosmossdkexamplemoduletypes "github.com/achelabov/cosmossdk-example/x/cosmossdkexample/types"
+	_ "github.com/achelabov/cosmossdk-example/x/notes/module"
+	notesmoduletypes "github.com/achelabov/cosmossdk-example/x/notes/types"
 	"github.com/cosmos/cosmos-sdk/runtime"
 	_ "github.com/cosmos/cosmos-sdk/x/auth/tx/config" // import for side-effects
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
@@ -83,6 +85,7 @@ var (
 		{Account: nft.ModuleName},
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: icatypes.ModuleName},
+		{Account: notesmoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner, authtypes.Staking}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 
@@ -127,6 +130,7 @@ var (
 						ibcexported.ModuleName,
 						// chain modules
 						cosmossdkexamplemoduletypes.ModuleName,
+						notesmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/beginBlockers
 					},
 					EndBlockers: []string{
@@ -136,6 +140,7 @@ var (
 						group.ModuleName,
 						// chain modules
 						cosmossdkexamplemoduletypes.ModuleName,
+						notesmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/endBlockers
 					},
 					// The following is mostly only needed when ModuleName != StoreKey name.
@@ -173,6 +178,7 @@ var (
 						icatypes.ModuleName,
 						// chain modules
 						cosmossdkexamplemoduletypes.ModuleName,
+						notesmoduletypes.ModuleName,
 						// this line is used by starport scaffolding # stargate/app/initGenesis
 					},
 				}),
@@ -272,6 +278,10 @@ var (
 			{
 				Name:   cosmossdkexamplemoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&cosmossdkexamplemoduletypes.Module{}),
+			},
+			{
+				Name:   notesmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&notesmoduletypes.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package cosmossdkexample.notes.v1;
+
+import "amino/amino.proto";
+import "cosmos/base/query/v1beta1/pagination.proto";
+import "cosmossdkexample/notes/v1/note.proto";
+import "cosmossdkexample/notes/v1/params.proto";
+import "gogoproto/gogo.proto";
+import "google/api/annotations.proto";
+
+option go_package = "github.com/achelabov/cosmossdk-example/x/notes/types";
+
+// Query defines the gRPC querier service.
+service Query {
+  // Parameters queries the parameters of the module.
+  rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
+    option (google.api.http).get = "/achelabov/cosmossdk-example/notes/v1/params";
+  }
+
+  // ListNote Queries a list of Note items.
+  rpc GetNote(QueryGetNoteRequest) returns (QueryGetNoteResponse) {
+    option (google.api.http).get = "/achelabov/cosmossdk-example/notes/v1/note/{index}";
+  }
+
+  // ListNote defines the ListNote RPC.
+  rpc ListNote(QueryAllNoteRequest) returns (QueryAllNoteResponse) {
+    option (google.api.http).get = "/achelabov/cosmossdk-example/notes/v1/note";
+  }
+}
+
+// QueryParamsRequest is request type for the Query/Params RPC method.
+message QueryParamsRequest {}
+
+// QueryParamsResponse is response type for the Query/Params RPC method.
+message QueryParamsResponse {
+  // params holds all the parameters of this module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}
+
+// QueryGetNoteRequest defines the QueryGetNoteRequest message.
+message QueryGetNoteRequest {
+  string index = 1;
+}
+
+// QueryGetNoteResponse defines the QueryGetNoteResponse message.
+message QueryGetNoteResponse {
+  Note note = 1 [(gogoproto.nullable) = false];
+}
+
+// QueryAllNoteRequest defines the QueryAllNoteRequest message.
+message QueryAllNoteRequest {
+  cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+// QueryAllNoteResponse defines the QueryAllNoteResponse message.
+message QueryAllNoteResponse {
+  repeated Note note = 1 [(gogoproto.nullable) = false];
+  cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
